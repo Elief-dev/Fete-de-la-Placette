@@ -1,0 +1,6 @@
+# Réglages Claude Code propres à cette machine (ne pas partager)
+.claude/settings.local.json
+
+# Fichiers générés par Windows
+Thumbs.db
+desktop.ini
