@@ -1,0 +1,30 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Configuration locale : l'adresse et la clé du projet Supabase.
+# Non versionné par convention (séparer la configuration du code),
+# et non parce que ce serait un secret : la clé « anon » est publique
+# par nature. Voir .env.example pour le modèle.
+.env
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

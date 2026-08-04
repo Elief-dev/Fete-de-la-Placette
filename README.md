@@ -29,10 +29,12 @@ concepts d'un coup pour un premier projet de cette taille.
   contribution de référence
 - Règles d'accès posées et vérifiées : lecture et création publiques,
   **aucune suppression possible** depuis l'extérieur
+- Projet web créé (Vite + TypeScript) et **branché sur la base** : une
+  première page lit et affiche les 25 types, ce qui valide toute la
+  chaîne de bout en bout
 
 **Reste à faire pour la v1**
 
-- Organiser le projet web et le brancher sur Supabase
 - La page d'inscription (formulaire)
 - La page liste et synthèse
 - La mise en ligne, puis le QR code et l'affiche
@@ -51,10 +53,29 @@ docs/
 db/
   schema.sql           Structure de la base. Exécuté le 2026-08-04.
   policies.sql         Droits d'accès. Exécuté le 2026-08-04.
+web/                   L'application (Vite + TypeScript)
+  index.html           La page, presque vide : le contenu vient du code
+  src/supabase.ts      La connexion à la base
+  src/main.ts          L'écran affiché
+  .env.example         Modèle de configuration à recopier en .env
 ```
 
 Les deux fichiers SQL sont massivement commentés en français : ils
 servent autant de documentation que de code.
+
+## Faire tourner l'application en local
+
+```
+cd web
+npm install        (la première fois seulement)
+npm run dev
+```
+
+Puis ouvrir l'adresse affichée, typiquement http://localhost:5173
+
+Au préalable : copier `web/.env.example` en `web/.env` et y renseigner
+l'adresse du projet Supabase et sa clé publique. Sans ce fichier, la
+page affiche un message d'erreur explicite.
 
 ## Recréer la base de zéro
 
