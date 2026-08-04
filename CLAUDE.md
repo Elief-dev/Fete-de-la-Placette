@@ -34,6 +34,34 @@ Points de vigilance :
   configurer les droits pour éviter que n'importe qui puisse lire ou
   effacer toutes les inscriptions.
 
+# Projet Supabase (créé le 2026-08-04)
+
+Projet « Fete-de-la-Placette », plan gratuit, région West EU (Paris).
+
+Réglages de sécurité choisis à la création — ils déterminent le SQL des
+étapes suivantes, ne pas les redécouvrir à l'aveugle :
+
+- Enable Data API : ACTIVÉ. Indispensable, c'est par là que la page web
+  parlera à la base sans serveur maison.
+- Automatically expose new tables : DÉSACTIVÉ. Recommandation de Supabase
+  lui-même. Les tables ne sont donc pas exposées à l'API tant qu'on n'a
+  pas accordé les droits explicitement (GRANT).
+- Enable automatic RLS : ACTIVÉ. Toute nouvelle table est verrouillée
+  d'office.
+
+Conséquence : il y a DEUX verrous à ouvrir, pas un.
+  1. les droits d'accès (GRANT) — parce que l'exposition auto est coupée
+  2. les règles RLS (POLICY) — parce que le verrou est activé
+Tant que les deux ne sont pas faits, le formulaire ne fonctionnera pas.
+Ce n'est pas une panne.
+
+Structure créée : voir db/schema.sql, exécuté et vérifié le 2026-08-04
+par huit essais (clé étrangère, contrainte check, cascade, jointure de
+synthèse). Base vide depuis.
+
+À traiter avant d'imprimer l'affiche avec le QR code : la mise en veille
+des projets inactifs sur le plan gratuit.
+
 # Mode de collaboration
 
 Mon objectif principal est d'apprendre, pas d'aller vite. Priorité à 
