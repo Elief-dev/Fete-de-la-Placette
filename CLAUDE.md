@@ -49,15 +49,29 @@ Réglages de sécurité choisis à la création — ils déterminent le SQL des
 - Enable automatic RLS : ACTIVÉ. Toute nouvelle table est verrouillée
   d'office.
 
-Conséquence : il y a DEUX verrous à ouvrir, pas un.
+Conséquence : il y avait DEUX verrous à ouvrir, pas un.
   1. les droits d'accès (GRANT) — parce que l'exposition auto est coupée
   2. les règles RLS (POLICY) — parce que le verrou est activé
-Tant que les deux ne sont pas faits, le formulaire ne fonctionnera pas.
-Ce n'est pas une panne.
+Les deux sont ouverts depuis le 2026-08-04, voir db/policies.sql.
 
 Structure créée : voir db/schema.sql, exécuté et vérifié le 2026-08-04
 par huit essais (clé étrangère, contrainte check, cascade, jointure de
 synthèse). Base vide depuis.
+
+Droits accordés au rôle « anon » (le visiteur non connecté), vérifiés le
+2026-08-04 en basculant le rôle dans l'éditeur SQL :
+
+  Table                  Lire   Créer   Modifier   Supprimer
+  types_contribution      oui     non      non         non
+  inscriptions            oui     oui      non         non
+  contributions           oui     oui      non         non
+
+Ni update ni delete ne sont accordés à personne d'autre qu'à
+l'organisatrice via le tableau de bord Supabase. C'est ce qui couvre en
+v1 les histoires 4, 5 et 11 sans écrire une ligne de code.
+
+Ne JAMAIS mettre la clé « service_role » dans la page web : elle ignore
+toutes ces règles. Seule la clé publique (anon) y a sa place.
 
 À traiter avant d'imprimer l'affiche avec le QR code : la mise en veille
 des projets inactifs sur le plan gratuit.
