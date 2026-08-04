@@ -92,3 +92,8 @@ la compréhension sur la vitesse d'exécution.
   seule.
 - Je ne suis pas développeuse. Vulgarise les termes techniques la 
   première fois que tu les utilises.
+- À la fin de chaque étape aboutie, mets à jour la section « Où en est
+  le projet » du README.md, et consigne dans ce fichier les décisions
+  structurantes prises en chemin. Entre deux sessions, le contenu du
+  repo est ta seule mémoire du projet : ce qui n'y est pas écrit est
+  perdu.
