@@ -211,3 +211,99 @@ pre {
   white-space: pre-wrap;
   font-size: 0.9rem;
 }
+
+/* --- La liste et la synthèse ---------------------------------------- */
+
+#liste {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e6e0d6;
+}
+
+#liste h3 {
+  font-size: 1.2rem;
+  margin: 1.75rem 0 0.75rem;
+}
+
+#liste h3:first-child {
+  margin-top: 0;
+}
+
+#liste h4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1rem;
+  margin: 1.25rem 0 0.4rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #ece6dc;
+  color: #6b4f2a;
+}
+
+.chiffres {
+  font-size: 1.05rem;
+  background: #f3efe7;
+  padding: 0.7rem 0.9rem;
+  border-radius: 6px;
+  margin: 0;
+}
+
+.total {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #5a5248;
+}
+
+.par-type {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.par-type li {
+  padding: 0.15rem 0;
+}
+
+/* Les précisions écrites par les voisins : lisibles mais discrètes,
+   c'est ce qui évite d'apporter le même plat. */
+.precisions {
+  color: #6a6a6a;
+  font-size: 0.9rem;
+}
+
+.inscrits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.inscrits li {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #f0ebe3;
+}
+
+.complement {
+  font-weight: 400;
+  color: #6a6a6a;
+}
+
+.combien {
+  float: right;
+  font-size: 0.9rem;
+  color: #6a6a6a;
+}
+
+.apports {
+  font-size: 0.95rem;
+  color: #3d3830;
+  margin-top: 0.15rem;
+}
+
+.apports.rien {
+  color: #9a9a9a;
+  font-style: italic;
+}
+
+.erreur {
+  color: #8a3b3b;
+}

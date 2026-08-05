@@ -9,6 +9,7 @@
 import './style.css'
 import { supabase } from './supabase'
 import { proposerUnType } from './proposition'
+import { afficherLaListe } from './liste'
 
 // --- Les informations de la fête --------------------------------------
 //
@@ -283,6 +284,12 @@ function afficherLaPage(types: TypeContribution[]) {
 
       <p id="message" role="status"></p>
     </form>
+
+    <!-- La liste et la synthèse, remplies juste après par liste.ts.
+         Elles sont sous le formulaire, et non sur une autre page :
+         le voisin voit ce que les autres apportent pendant qu'il
+         remplit, ce qui est tout l'intérêt de l'histoire 9. -->
+    <section id="liste"></section>
   `
 
   const listeContributions =
@@ -408,6 +415,11 @@ function afficherLaPage(types: TypeContribution[]) {
         'beforeend',
         ligneDeContribution(types)
       )
+
+      // Et on recharge la liste : le voisin voit sa propre inscription
+      // apparaître juste en dessous. C'est la meilleure confirmation
+      // possible — bien plus convaincante qu'un message.
+      afficherLaListe(document.querySelector<HTMLElement>('#liste')!, types)
     } catch (erreur) {
       message.className = 'erreur'
       message.textContent =
@@ -426,6 +438,9 @@ function afficherLaPage(types: TypeContribution[]) {
     'beforeend',
     ligneDeContribution(types)
   )
+
+  // La liste des inscrits, sous le formulaire.
+  afficherLaListe(document.querySelector<HTMLElement>('#liste')!, types)
 }
 
 // =====================================================================

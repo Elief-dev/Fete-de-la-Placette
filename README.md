@@ -29,14 +29,18 @@ concepts d'un coup pour un premier projet de cette taille.
   contribution de référence
 - Règles d'accès posées et vérifiées : lecture et création publiques,
   **aucune suppression possible** depuis l'extérieur
-- Projet web créé (Vite + TypeScript) et **branché sur la base** : une
-  première page lit et affiche les 25 types, ce qui valide toute la
-  chaîne de bout en bout
+- Projet web créé (Vite + TypeScript) et **branché sur la base**
+- **Le formulaire d'inscription fonctionne** : prénom, nombre de
+  personnes, et autant de contributions qu'on veut. Le type se propose
+  tout seul à partir du texte saisi, et reste corrigeable
+- **La liste et la synthèse s'affichent** sous le formulaire : totaux
+  par catégorie, détail regroupé par type, et qui apporte quoi
+
+Les cinq histoires du socle v1 (1a, 8, 2, 9, 10) sont donc couvertes.
+L'application tourne en local.
 
 **Reste à faire pour la v1**
 
-- La page d'inscription (formulaire)
-- La page liste et synthèse
 - La mise en ligne, puis le QR code et l'affiche
 
 **Point de vigilance en suspens** : sur le plan gratuit, un projet
@@ -56,7 +60,9 @@ db/
 web/                   L'application (Vite + TypeScript)
   index.html           La page, presque vide : le contenu vient du code
   src/supabase.ts      La connexion à la base
-  src/main.ts          L'écran affiché
+  src/main.ts          La page et le formulaire d'inscription
+  src/proposition.ts   Le dictionnaire qui devine le type d'un plat
+  src/liste.ts         La liste des inscrits et la synthèse
   .env.example         Modèle de configuration à recopier en .env
 ```
 
