@@ -39,13 +39,16 @@ concepts d'un coup pour un premier projet de cette taille.
   jour automatiquement à chaque envoi de code sur `main` (voir plus bas
   « Publier une mise à jour ») :
   **https://elief-dev.github.io/Fete-de-la-Placette/**
+- **L'affiche est prête** (`affiche/index.html`), avec son QR code
+  pointant vers l'adresse ci-dessus — mise en page pour impression A4
 
-Les cinq histoires du socle v1 (1a, 8, 2, 9, 10) sont donc couvertes.
-L'application est en ligne et accessible à tous.
+Les six histoires du socle v1 (1a, 8, 2, 9, 10, et l'affiche) sont donc
+couvertes. L'application est en ligne et accessible à tous.
 
 **Reste à faire pour la v1**
 
-- Le QR code et l'affiche, maintenant que l'adresse est stable
+- Imprimer l'affiche — voir le point de vigilance ci-dessous avant de
+  le faire
 
 **Point de vigilance en suspens** : sur le plan gratuit, un projet
 Supabase inactif est mis en veille. À régler avant d'imprimer l'affiche,
@@ -59,6 +62,10 @@ CLAUDE.md              Le contexte du projet : décisions, réglages,
 .github/
   workflows/deploy.yml Le robot qui construit et publie le site sur
                        GitHub Pages à chaque envoi sur main.
+affiche/
+  index.html           L'affiche à imprimer (A4) : titre, date, lieu,
+                       QR code. S'ouvre directement dans un navigateur.
+  qr-code.svg          Le QR code, pointant vers l'adresse en ligne.
 docs/
   user-stories.md      Le besoin, histoire par histoire, priorisé.
 db/
@@ -109,6 +116,17 @@ Le `push` déclenche automatiquement le robot GitHub Actions, qui
 reconstruit le site et le republie sur GitHub Pages, en général en
 moins d'une ou deux minutes. On peut suivre sa progression dans
 l'onglet **Actions** du dépôt sur GitHub.
+
+## Imprimer l'affiche
+
+Ouvrir `affiche/index.html` directement dans un navigateur (double-clic
+sur le fichier), puis Ctrl+P — imprimer directement, ou « Enregistrer
+en PDF » pour l'envoyer chez un imprimeur. Mise en page prévue pour une
+feuille A4.
+
+Si la date ou le lieu de la fête changent, ce fichier ne se met pas à
+jour seul : il faut éditer son texte à la main, en plus de la constante
+`LA_FETE` dans `web/src/main.ts` — les deux sont indépendants.
 
 ## Recréer la base de zéro
 

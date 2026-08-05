@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Affiche — La Fête de la Placette</title>
+<style>
+  /* Si la date de la fête change, mettre à jour ce fichier ET la
+     constante LA_FETE dans web/src/main.ts — les deux sont
+     indépendants, rien ne les relie automatiquement. */
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #fdf6ec;
+  }
+
+  .affiche {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    background: #fdf6ec;
+    color: #3a2b1a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20mm;
+  }
+
+  .titre {
+    font-size: 52pt;
+    font-weight: bold;
+    color: #b5502e;
+    line-height: 1.15;
+  }
+
+  .sous-titre {
+    margin-top: 6mm;
+    font-size: 16pt;
+    font-style: italic;
+    max-width: 140mm;
+    line-height: 1.4;
+  }
+
+  .date-lieu {
+    margin-top: 12mm;
+    font-size: 20pt;
+    font-weight: bold;
+  }
+
+  .lieu {
+    font-size: 16pt;
+    font-weight: normal;
+  }
+
+  .qr-code {
+    margin-top: 14mm;
+    width: 65mm;
+    height: 65mm;
+    border: 3mm solid #b5502e;
+    padding: 4mm;
+    background: white;
+  }
+
+  .adresse {
+    margin-top: 6mm;
+    font-size: 11pt;
+    color: #6b5a45;
+    word-break: break-all;
+  }
+
+  .accroche-scan {
+    margin-top: 4mm;
+    font-size: 15pt;
+    font-weight: bold;
+    color: #b5502e;
+  }
+
+  @media print {
+    body {
+      background: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="affiche">
+    <div class="titre">La Fête de la Placette</div>
+    <div class="sous-titre">
+      Bonjour les amis&nbsp;! La nouvelle édition 2027 approche.
+      Inscris-toi&nbsp;!
+    </div>
+
+    <div class="date-lieu">
+      Samedi 12 juin 2027
+      <div class="lieu">La Placette, Ansouis</div>
+    </div>
+
+    <img class="qr-code" src="qr-code.svg" alt="QR code d'inscription">
+    <div class="adresse">elief-dev.github.io/Fete-de-la-Placette</div>
+  </div>
+</body>
+</html>

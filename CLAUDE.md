@@ -148,6 +148,34 @@ Reste en suspens (déjà noté plus haut) : la mise en veille du projet
 Supabase gratuit en cas d'inactivité, à régler avant d'imprimer le QR
 code.
 
+# L'affiche (créée le 2026-08-05)
+
+`affiche/index.html` : une page HTML autonome, mise en page pour une
+feuille A4, à ouvrir directement dans un navigateur et imprimer
+(Ctrl+P). Volontairement séparée de web/ : ce n'est pas l'application,
+juste un document à imprimer une fois, pas besoin de Vite ni d'aucune
+construction pour ça.
+
+`affiche/qr-code.svg` : généré une seule fois avec l'outil `qrcode`
+(commande `npx qrcode`), sans l'ajouter aux dépendances du projet — un
+usage ponctuel, pas un besoin permanent de l'application. Encode
+l'adresse en ligne. Format SVG plutôt que PNG : reste net à n'importe
+quelle taille d'impression.
+
+Contenu décidé le 2026-08-05 : titre, un texte d'accroche
+(« Bonjour les amis ! ... »), date et lieu, le QR code, et l'adresse en
+toutes lettres en dessous, en petit. Pas de mention « Scanne pour
+t'inscrire » — jugé inutile, un QR code se reconnaît de lui-même depuis
+le COVID. L'adresse en texte est gardée malgré tout, comme filet de
+sécurité : utile si l'affiche est mal éclairée, abîmée, ou si quelqu'un
+en partage une photo dans le groupe WhatsApp du quartier (le QR code
+d'une photo ne se rescanne pas aussi facilement que du texte qu'on
+recopie).
+
+Comme pour la constante LA_FETE de web/src/main.ts, la date et le lieu
+sont écrits en dur ici aussi — et les deux fichiers ne se mettent pas à
+jour l'un l'autre. Si la date change un jour, éditer les deux.
+
 # Environnement de travail
 
 Poste professionnel Windows, sans droits administrateur.
