@@ -79,6 +79,9 @@ npm run dev
 
 Puis ouvrir l'adresse affichée, typiquement http://localhost:5173
 
+Sur un poste Windows où la politique de sécurité PowerShell bloque les
+scripts, écrire `npm.cmd run dev` au lieu de `npm run dev`.
+
 Au préalable : copier `web/.env.example` en `web/.env` et y renseigner
 l'adresse du projet Supabase et sa clé publique. Sans ce fichier, la
 page affiche un message d'erreur explicite.
