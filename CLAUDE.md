@@ -20,9 +20,9 @@ via un lien WhatsApp et un QR code sur une affiche. L'app doit donc
 - Base de données : PostgreSQL, en version hébergée via Supabase
 - Serveur maison : aucun pour l'instant. La page communique directement
   avec Supabase. À reconsidérer plus tard comme étape d'apprentissage.
-- Hébergement : à décider (point de vigilance : les offres gratuites
-  mettent les projets inactifs en veille, or le QR code doit rester
-  fonctionnel pendant toute la période d'inscription).
+- Hébergement : GitHub Pages, décidé et mis en place le 2026-08-05
+  (voir section « Mise en ligne » plus bas pour le détail et les
+  raisons).
 
 Écarté : les frameworks type React/Next.js, trop de concepts d'un coup
 pour un premier projet de cette taille.
@@ -82,8 +82,8 @@ des projets inactifs sur le plan gratuit.
 
 # L'application web (créée le 2026-08-05)
 
-Vite + TypeScript, dans le dossier web/. Installée en local uniquement,
-pas encore hébergée.
+Vite + TypeScript, dans le dossier web/. En ligne depuis le 2026-08-05,
+voir section « Mise en ligne » plus bas.
 
 UNE SEULE PAGE : le formulaire d'inscription, et juste en dessous la
 liste des inscrits avec la synthèse. Pas de navigation entre pages —
@@ -108,6 +108,46 @@ Conventions à respecter dans tout ajout de code :
   LA_FETE en haut de src/main.ts. Pas de table pour ça, ça change une
   fois par an. Actuellement : samedi 12 juin 2027, La Placette, Ansouis.
 
+# Mise en ligne (2026-08-05)
+
+Hébergement choisi : **GitHub Pages** — gratuit, et surtout ne se met
+jamais en veille (contrairement au projet Supabase, voir plus haut).
+
+Conséquence : le dépôt GitHub a dû être rendu **public**, GitHub Pages
+gratuit n'acceptant de publier qu'à partir d'un dépôt public (le mode
+privé est réservé aux comptes payants). Vérifié avant de le faire :
+aucun secret n'est versionné, `.env` (qui contient la clé Supabase) est
+ignoré par Git depuis le début, seul `.env.example`, vide, est suivi.
+Rendre le code visible n'ajoute donc pas d'exposition nouvelle : la clé
+anon qu'il utilise est déjà conçue pour être publique, et la liste des
+inscriptions l'est déjà aussi (voir README, section Données
+personnelles).
+
+Publication automatisée par un robot **GitHub Actions**
+(`.github/workflows/deploy.yml`) : à chaque envoi sur `main`, il
+construit le site dans `web/` (`npm run build`) puis le publie sur
+GitHub Pages. Comme le code Vite vit dans le sous-dossier `web/` et non
+à la racine du dépôt, c'est la façon la plus fiable de faire le lien
+— plus fiable qu'une construction manuelle à refaire soi-même à chaque
+changement, avec le risque d'oublier.
+
+La clé Supabase, nécessaire pendant la construction (le robot l'insère
+dans les fichiers produits), est fournie via deux secrets du dépôt —
+**Settings → Secrets and variables → Actions → `VITE_SUPABASE_URL` et
+`VITE_SUPABASE_ANON_KEY`** — plutôt qu'écrite en dur dans le fichier de
+workflow, dans le même esprit de séparation que le `.env` local.
+
+`web/vite.config.ts` fixe `base: '/Fete-de-la-Placette/'` : GitHub
+Pages sert ce site dans un sous-dossier (l'adresse contient le nom du
+dépôt), pas à la racine. Sans ce réglage, les fichiers CSS/JS générés
+cherchent au mauvais endroit et la page reste blanche.
+
+**Adresse en ligne : https://elief-dev.github.io/Fete-de-la-Placette/**
+
+Reste en suspens (déjà noté plus haut) : la mise en veille du projet
+Supabase gratuit en cas d'inactivité, à régler avant d'imprimer le QR
+code.
+
 # Environnement de travail
 
 Poste professionnel Windows, sans droits administrateur.
@@ -118,11 +158,22 @@ Poste professionnel Windows, sans droits administrateur.
   Ne JAMAIS proposer de modifier Set-ExecutionPolicy : c'est un réglage
   imposé par l'entreprise, et le .cmd règle le problème sans rien
   toucher.
+- Git, lui, fonctionne directement en PowerShell sans contournement
+  (`git add`, `git commit`, `git push`...) — seul npm est concerné par
+  le blocage ci-dessus.
 - Emma lance elle-même le serveur de développement depuis le terminal
-  intégré de VS Code (View → Terminal), après « cd web ».
+  intégré de VS Code (View → Terminal), après « cd web ». Ce terminal
+  reste occupé tout le temps que `npm run dev` tourne : pour toute
+  commande git, en ouvrir un second (icône « + » du panneau Terminal).
 - Les autorisations OAuth vers des services tiers peuvent être bloquées
   (constaté avec la connexion GitHub depuis Supabase). Prévoir un
   contournement par inscription email classique.
+  Précision suite à la mise en ligne du 2026-08-05 : l'usage direct
+  d'un compte GitHub (créer le compte, créer le dépôt, activer Pages)
+  n'a rencontré aucun blocage. Le blocage constaté concernait
+  spécifiquement Supabase demandant l'autorisation d'accéder à GitHub
+  (une appli tierce demandant accès à une autre) — pas l'usage direct
+  de GitHub lui-même.
 
 # Mode de collaboration
 

@@ -15,7 +15,7 @@ Projet d'apprentissage : la priorité est la compréhension, pas la vitesse.
 | Langage | TypeScript |
 | Base de données | PostgreSQL, hébergé chez Supabase (région Paris) |
 | Serveur maison | aucun — la page parle directement à Supabase |
-| Hébergement de la page | à décider |
+| Hébergement de la page | GitHub Pages, gratuit, publication automatique |
 
 Écarté volontairement : les frameworks type React/Next.js, trop de
 concepts d'un coup pour un premier projet de cette taille.
@@ -35,13 +35,17 @@ concepts d'un coup pour un premier projet de cette taille.
   tout seul à partir du texte saisi, et reste corrigeable
 - **La liste et la synthèse s'affichent** sous le formulaire : totaux
   par catégorie, détail regroupé par type, et qui apporte quoi
+- **L'application est en ligne**, publiée sur GitHub Pages et mise à
+  jour automatiquement à chaque envoi de code sur `main` (voir plus bas
+  « Publier une mise à jour ») :
+  **https://elief-dev.github.io/Fete-de-la-Placette/**
 
 Les cinq histoires du socle v1 (1a, 8, 2, 9, 10) sont donc couvertes.
-L'application tourne en local.
+L'application est en ligne et accessible à tous.
 
 **Reste à faire pour la v1**
 
-- La mise en ligne, puis le QR code et l'affiche
+- Le QR code et l'affiche, maintenant que l'adresse est stable
 
 **Point de vigilance en suspens** : sur le plan gratuit, un projet
 Supabase inactif est mis en veille. À régler avant d'imprimer l'affiche,
@@ -52,6 +56,9 @@ sinon le QR code peut mener à une page endormie.
 ```
 CLAUDE.md              Le contexte du projet : décisions, réglages,
                        mode de collaboration. À lire en premier.
+.github/
+  workflows/deploy.yml Le robot qui construit et publie le site sur
+                       GitHub Pages à chaque envoi sur main.
 docs/
   user-stories.md      Le besoin, histoire par histoire, priorisé.
 db/
@@ -59,6 +66,7 @@ db/
   policies.sql         Droits d'accès. Exécuté le 2026-08-04.
 web/                   L'application (Vite + TypeScript)
   index.html           La page, presque vide : le contenu vient du code
+  vite.config.ts       Réglage du sous-dossier d'adresse pour GitHub Pages
   src/supabase.ts      La connexion à la base
   src/main.ts          La page et le formulaire d'inscription
   src/proposition.ts   Le dictionnaire qui devine le type d'un plat
@@ -85,6 +93,22 @@ scripts, écrire `npm.cmd run dev` au lieu de `npm run dev`.
 Au préalable : copier `web/.env.example` en `web/.env` et y renseigner
 l'adresse du projet Supabase et sa clé publique. Sans ce fichier, la
 page affiche un message d'erreur explicite.
+
+## Publier une mise à jour
+
+Le site en ligne se met à jour seul, il n'y a rien à construire ni à
+copier à la main :
+
+```
+git add ...
+git commit -m "..."
+git push
+```
+
+Le `push` déclenche automatiquement le robot GitHub Actions, qui
+reconstruit le site et le republie sur GitHub Pages, en général en
+moins d'une ou deux minutes. On peut suivre sa progression dans
+l'onglet **Actions** du dépôt sur GitHub.
 
 ## Recréer la base de zéro
 
