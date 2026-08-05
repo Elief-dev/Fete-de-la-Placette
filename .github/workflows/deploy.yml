@@ -32,6 +32,10 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+      # L'affiche (dossier affiche/ à la racine du dépôt) n'a pas besoin
+      # de Vite, mais on la publie tout de même au même endroit que
+      # l'application, pour avoir un lien direct à partager.
+      - run: cp -r ../affiche dist/affiche
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist

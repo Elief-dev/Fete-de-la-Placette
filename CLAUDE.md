@@ -176,6 +176,15 @@ Comme pour la constante LA_FETE de web/src/main.ts, la date et le lieu
 sont écrits en dur ici aussi — et les deux fichiers ne se mettent pas à
 jour l'un l'autre. Si la date change un jour, éditer les deux.
 
+Publiée en ligne depuis le 2026-08-05, pour pouvoir la partager par
+lien plutôt que par fichier (besoin identifié en montrant le projet à
+un collègue) : https://elief-dev.github.io/Fete-de-la-Placette/affiche/
+Le robot .github/workflows/deploy.yml copie le dossier affiche/ dans
+dist/affiche juste après la construction du site, donc les deux sont
+servis ensemble par GitHub Pages. affiche/ reste néanmoins hors de
+web/ : ce choix de rangement (documenté plus haut) ne change pas, seule
+l'étape de publication a été étendue pour l'inclure aussi.
+
 # Environnement de travail
 
 Poste professionnel Windows, sans droits administrateur.

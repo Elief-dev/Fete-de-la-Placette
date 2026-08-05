@@ -40,7 +40,9 @@ concepts d'un coup pour un premier projet de cette taille.
   « Publier une mise à jour ») :
   **https://elief-dev.github.io/Fete-de-la-Placette/**
 - **L'affiche est prête** (`affiche/index.html`), avec son QR code
-  pointant vers l'adresse ci-dessus — mise en page pour impression A4
+  pointant vers l'adresse ci-dessus — mise en page pour impression A4,
+  et consultable en ligne :
+  **https://elief-dev.github.io/Fete-de-la-Placette/affiche/**
 
 Les six histoires du socle v1 (1a, 8, 2, 9, 10, et l'affiche) sont donc
 couvertes. L'application est en ligne et accessible à tous.
@@ -123,6 +125,10 @@ Ouvrir `affiche/index.html` directement dans un navigateur (double-clic
 sur le fichier), puis Ctrl+P — imprimer directement, ou « Enregistrer
 en PDF » pour l'envoyer chez un imprimeur. Mise en page prévue pour une
 feuille A4.
+
+Pour la partager sans envoyer de fichier, l'affiche est aussi publiée
+au même endroit que l'application (même robot GitHub Actions, voir
+plus haut) : https://elief-dev.github.io/Fete-de-la-Placette/affiche/
 
 Si la date ou le lieu de la fête changent, ce fichier ne se met pas à
 jour seul : il faut éditer son texte à la main, en plus de la constante
