@@ -90,10 +90,19 @@ n'importe quel PostgreSQL, pas seulement chez Supabase.
 ## Données personnelles
 
 Le strict nécessaire est collecté : un prénom, un complément facultatif
-pour distinguer les homonymes, un nombre de personnes. Ni nom de famille,
-ni email, ni numéro de téléphone.
+pour distinguer les homonymes, un nombre de personnes. **Ni email, ni
+numéro de téléphone** — aucun moyen de contact n'est demandé.
+
+Le champ « complément » est libre et facultatif. Son texte d'exemple
+suggère notamment un nom de famille (« Martin »), donc certains
+participants en renseigneront un. Décision assumée le 2026-08-05 : sur
+une fête entre voisins qui se connaissent, distinguer deux Sophie prime
+sur la discrétion d'un patronyme. Chacun reste libre de mettre autre
+chose, ou rien.
 
 La liste des inscriptions est publique, c'est un choix assumé — elle
-évite que quatre voisins apportent le même taboulé.
+évite que quatre voisins apportent le même taboulé. Corollaire : ce qui
+est saisi dans « complément » est visible par tous, y compris par un
+passant qui scanne l'affiche.
 
 Les données seront effacées après la fête.

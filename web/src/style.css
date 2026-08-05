@@ -1,50 +1,204 @@
 /* ---------------------------------------------------------------------
-   Mise en forme minimale.
+   Mise en forme.
 
-   L'apparence n'est pas le sujet de cette étape : on veut juste que ce
-   soit lisible, sur téléphone comme sur ordinateur. On y reviendra.
+   Priorité au téléphone : c'est là que les voisins rempliront le
+   formulaire, souvent debout dans la rue. Champs hauts, texte lisible,
+   une seule colonne.
    --------------------------------------------------------------------- */
 
 body {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   line-height: 1.5;
-  margin: 0;
-  padding: 1.5rem;
-  max-width: 40rem;       /* évite les lignes trop longues sur grand écran */
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+  max-width: 34rem;
   color: #1a1a1a;
   background: #fdfcfa;
 }
 
+/* --- En-tête ------------------------------------------------------- */
+
 h1 {
-  font-size: 1.6rem;
-  margin-bottom: 0.25rem;
+  font-size: 1.7rem;
+  margin: 0 0 0.5rem;
+}
+
+.infos-fete {
+  margin: 0 0 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e6e0d6;
+  color: #5a5248;
+  font-size: 1.05rem;
 }
 
 h2 {
-  font-size: 1.1rem;
-  margin-top: 1.75rem;
-  margin-bottom: 0.5rem;
-  color: #6b4f2a;
+  font-size: 1.25rem;
+  margin: 0 0 1.25rem;
 }
 
-.sous-titre {
+/* --- Champs de formulaire ------------------------------------------ */
+
+label {
+  display: block;
+  margin-bottom: 1.1rem;
+  font-weight: 600;
+}
+
+label small {
+  display: block;
+  font-weight: 400;
   color: #6a6a6a;
+  margin-top: 0.25rem;
+}
+
+.facultatif {
+  font-weight: 400;
+  color: #8a8a8a;
+}
+
+input,
+select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.3rem;
+  padding: 0.65rem 0.6rem;
+  font: inherit;
+  color: inherit;
+  background: #fff;
+  border: 1px solid #c9c1b5;
+  border-radius: 6px;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #8a6d3b;
+  outline-offset: 1px;
+}
+
+/* --- Le bloc « ce que j'apporte » ----------------------------------- */
+
+fieldset {
+  margin: 0 0 1.25rem;
+  padding: 1rem;
+  border: 1px solid #e6e0d6;
+  border-radius: 8px;
+  background: #faf7f2;
+}
+
+legend {
+  font-weight: 600;
+  padding: 0 0.4rem;
+}
+
+.aide {
+  margin: 0 0 0.9rem;
+  font-size: 0.9rem;
+  color: #6a6a6a;
+}
+
+/* Une ligne = un plat ou une boisson.
+   Sur téléphone les champs s'empilent ; sur écran large, la quantité et
+   la description se placent côte à côte. */
+.contribution {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px dashed #ded6c8;
+}
+
+@media (min-width: 30rem) {
+  /* Colonnes : quantité étroite, description large.
+     L'ordre suit celui des champs dans le HTML. */
+  .contribution {
+    grid-template-columns: 5rem 1fr auto;
+    align-items: start;
+  }
+  .contribution .champ-type {
+    grid-column: 1 / -1;
+  }
+}
+
+.contribution input,
+.contribution select {
   margin-top: 0;
 }
 
-ul {
-  margin: 0;
-  padding-left: 1.25rem;
+/* Le bouton de suppression reste petit et calé à droite, au lieu de
+   s'étirer sur toute la largeur de la colonne de la grille. */
+.supprimer {
+  justify-self: end;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: #8a3b3b;
+  background: #fff;
+  border: 1px solid #d8c2c2;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-li {
-  margin-bottom: 0.2rem;
+/* --- Boutons -------------------------------------------------------- */
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+  background: #6b4f2a;
+  border: none;
+  border-radius: 8px;
+}
+
+button[type="submit"]:hover {
+  background: #56401f;
+}
+
+.secondaire {
+  padding: 0.55rem 0.9rem;
+  color: #6b4f2a;
+  background: #fff;
+  border: 1px solid #c9b99c;
+  border-radius: 6px;
+}
+
+/* --- Notes et messages ---------------------------------------------- */
+
+.note {
+  font-size: 0.9rem;
+  color: #5a5248;
+  background: #f3efe7;
+  padding: 0.8rem 0.9rem;
+  border-radius: 6px;
+  margin: 0 0 1.5rem;
+}
+
+#message {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+#message.ok {
+  color: #2f6b3a;
+}
+
+#message.erreur {
+  color: #8a3b3b;
 }
 
 pre {
   background: #f3efe9;
   padding: 0.75rem;
   border-radius: 4px;
-  white-space: pre-wrap;   /* les messages d'erreur longs vont à la ligne */
+  white-space: pre-wrap;
   font-size: 0.9rem;
 }

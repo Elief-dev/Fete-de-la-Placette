@@ -27,9 +27,14 @@ Rédigé le 2026-08-03.
 
 - **La liste des inscriptions est publique.** Un voisin peut voir qui vient
   et ce que chacun apporte, pour éviter les doublons.
-- **Conséquence : prénom uniquement.** Pas de nom de famille, pas d'email,
-  pas de numéro de téléphone. Le lien sera affiché dans la rue, donc
-  lisible par n'importe quel passant.
+- **Conséquence : pas de moyen de contact.** Ni email, ni numéro de
+  téléphone. Le lien sera affiché dans la rue, donc lisible par
+  n'importe quel passant.
+- **Le complément est libre, et peut contenir un nom de famille.**
+  Révision du 2026-08-05 : le texte d'exemple du champ suggère
+  « Martin », donc certains en renseigneront un, et il sera public.
+  Assumé — distinguer deux Sophie prime ici sur la discrétion du
+  patronyme. Le champ reste facultatif.
 - **Pas d'authentification par numéro de téléphone.** Un numéro qu'on tape
   soi-même identifie sans prouver quoi que ce soit : n'importe qui pourrait
   modifier l'inscription d'un voisin. Un vrai code par SMS serait payant et
