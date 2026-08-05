@@ -110,15 +110,24 @@ legend {
 }
 
 @media (min-width: 30rem) {
-  /* Colonnes : quantité étroite, description large.
-     L'ordre suit celui des champs dans le HTML. */
+  /* La description occupe toute la première ligne : c'est le champ
+     principal, celui qui déclenche la proposition du type.
+     En dessous : le type (large), la quantité (étroite), le bouton. */
   .contribution {
-    grid-template-columns: 5rem 1fr auto;
+    grid-template-columns: 1fr 5rem auto;
     align-items: start;
   }
-  .contribution .champ-type {
+  .contribution .champ-description {
     grid-column: 1 / -1;
   }
+}
+
+/* Repère visuel quand le type a été proposé automatiquement.
+   Discret, mais suffisant pour que le voisin remarque que quelque
+   chose s'est choisi tout seul — et pense à le corriger si besoin. */
+.champ-type.propose {
+  background: #f2f7ef;
+  border-color: #8aab7d;
 }
 
 .contribution input,

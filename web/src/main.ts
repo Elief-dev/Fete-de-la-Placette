@@ -8,6 +8,7 @@
 
 import './style.css'
 import { supabase } from './supabase'
+import { proposerUnType } from './proposition'
 
 // --- Les informations de la fête --------------------------------------
 //
@@ -67,17 +68,23 @@ function menuDesTypes(types: TypeContribution[]): string {
 }
 
 // Une ligne « ce que j'apporte ». On peut en ajouter autant qu'on veut.
+//
+// L'ordre des champs compte : la DESCRIPTION vient en premier, parce
+// que c'est elle qui déclenche la proposition du type. Le voisin écrit
+// ce qu'il a en tête, et la liste se positionne toute seule en dessous.
+// Avec l'ordre inverse, il choisirait dans la liste et n'écrirait
+// jamais rien — la proposition ne servirait à rien.
 function ligneDeContribution(types: TypeContribution[]): string {
   return `
     <div class="contribution">
-      <select class="champ-type">
+      <input class="champ-description" type="text"
+             placeholder="Ce que tu apportes (ex : tarte aux courgettes)"
+             aria-label="Ce que tu apportes" />
+      <select class="champ-type" aria-label="Type">
         ${menuDesTypes(types)}
       </select>
       <input class="champ-quantite" type="number" min="1" value="1"
              aria-label="Quantité" />
-      <input class="champ-description" type="text"
-             placeholder="précision (facultatif)"
-             aria-label="Précision" />
       <button type="button" class="supprimer" aria-label="Retirer">
         × retirer
       </button>
@@ -137,6 +144,27 @@ function lireLesContributions(): ContributionSaisie[] {
   }
 
   return saisies
+}
+
+// Repère les lignes décrites mais sans type choisi.
+//
+// Sans ce contrôle, elles seraient ignorées en silence : le voisin
+// écrirait « sushis » — mot inconnu de notre dictionnaire — validerait,
+// et son plat disparaîtrait sans un mot. Une perte silencieuse est le
+// pire des comportements.
+function lignesSansType(): number {
+  let compte = 0
+
+  for (const ligne of document.querySelectorAll<HTMLDivElement>('.contribution')) {
+    const type = ligne.querySelector<HTMLSelectElement>('.champ-type')!.value
+    const description = ligne
+      .querySelector<HTMLInputElement>('.champ-description')!
+      .value.trim()
+
+    if (!type && description !== '') compte++
+  }
+
+  return compte
 }
 
 async function enregistrer(formulaire: HTMLFormElement) {
@@ -234,6 +262,8 @@ function afficherLaPage(types: TypeContribution[]) {
       <fieldset>
         <legend>Ce que j'apporte</legend>
         <p class="aide">
+          Écris ce que tu apportes, le type se choisit tout seul —
+          corrige-le si la proposition ne te convient pas.
           Tu peux en ajouter plusieurs, ou aucun si tu ne sais pas encore.
         </p>
         <div id="contributions"></div>
@@ -281,6 +311,51 @@ function afficherLaPage(types: TypeContribution[]) {
     }
   })
 
+  // --- Proposer un type pendant la frappe (histoire 8) ---
+  //
+  // À chaque caractère tapé dans la description, on cherche un type
+  // correspondant et on positionne la liste dessus.
+  listeContributions.addEventListener('input', (evenement) => {
+    const cible = evenement.target as HTMLElement
+    if (!cible.classList.contains('champ-description')) return
+
+    const ligne = cible.closest('.contribution') as HTMLDivElement
+
+    // Si le voisin a déjà choisi son type à la main, on n'y touche
+    // plus. Rien n'est plus agaçant qu'une application qui défait ce
+    // qu'on vient de faire.
+    if (ligne.dataset.choixManuel === 'oui') return
+
+    const liste = ligne.querySelector<HTMLSelectElement>('.champ-type')!
+    const propose = proposerUnType((cible as HTMLInputElement).value)
+
+    if (propose) {
+      liste.value = propose
+      liste.classList.add('propose')
+    } else if (liste.classList.contains('propose')) {
+      // Plus aucun mot-clé ne correspond, alors que le type affiché
+      // venait d'une proposition précédente. On le retire : laisser
+      // « Chips, olives » après avoir effacé « chips » pour écrire
+      // « sushis » serait trompeur.
+      liste.value = ''
+      liste.classList.remove('propose')
+    }
+  })
+
+  // --- Respecter un choix manuel ---
+  //
+  // Dès que le voisin touche lui-même à la liste, on marque la ligne et
+  // on cesse de proposer. Le repère visuel disparaît aussi : ce n'est
+  // plus une proposition, c'est son choix.
+  listeContributions.addEventListener('change', (evenement) => {
+    const cible = evenement.target as HTMLElement
+    if (!cible.classList.contains('champ-type')) return
+
+    const ligne = cible.closest('.contribution') as HTMLDivElement
+    ligne.dataset.choixManuel = 'oui'
+    cible.classList.remove('propose')
+  })
+
   // --- Envoi du formulaire ---
   //
   // « preventDefault » empêche le comportement par défaut du navigateur,
@@ -292,6 +367,19 @@ function afficherLaPage(types: TypeContribution[]) {
 
   formulaire.addEventListener('submit', async (evenement) => {
     evenement.preventDefault()
+
+    // Contrôle avant tout envoi : rien ne doit disparaître en silence.
+    const sansType = lignesSansType()
+    if (sansType > 0) {
+      message.className = 'erreur'
+      message.textContent =
+        sansType === 1
+          ? "Une ligne n'a pas de type choisi. Sélectionne-le dans la liste, " +
+            "ou efface le texte si tu ne l'apportes plus."
+          : `${sansType} lignes n'ont pas de type choisi. Complète-les, ` +
+            `ou efface leur texte.`
+      return
+    }
 
     // On désactive le bouton pendant l'envoi. Sans ça, un voisin
     // impatient qui clique deux fois créerait deux inscriptions —
